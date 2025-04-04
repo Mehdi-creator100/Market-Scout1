@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendez là où ça cartonne !</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+        }
+        .card {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container text-center">
+        <h1 class="mt-4">📢 Découvrez où vos produits cartonnent !</h1>
+        <p class="lead">Trouvez les pays avec **une forte demande et peu d'offres** pour maximiser vos ventes.</p>
+
+        <!-- Formulaire de recherche -->
+        <form action="/trends" method="GET" class="mt-4">
+            <input type="text" name="product" placeholder="Entrez un produit (ex: AirPods)" class="form-control" required>
+            <button type="submit" class="btn btn-primary mt-3">🔍 Rechercher</button>
+        </form>
+
+        {% if trends %}
+            <h2 class="mt-5">🌍 Analyse du marché pour "{{ product }}"</h2>
+
+            {% for trend in trends %}
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">📍 {{ trend.country }}</h4>
+                        <p class="card-text"><strong>Demande en ligne :</strong> {{ trend.demande }}</p>
+                        <p class="card-text"><strong>Analyse :</strong> {{ trend.opportunite }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if error_message %}
+            <div class="alert alert-danger mt-4">{{ error_message }}</div>
+        {% endif %}
+    </div>
+
+    <footer class="text-center mt-5">
+        <p>© 2024 MarketScout – Tous droits réservés. <br>Interdit de reproduire ou distribuer sans autorisation.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
